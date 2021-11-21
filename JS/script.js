@@ -39,6 +39,28 @@ allLinks.forEach(function (link) {
   });
 });
 
+//////////////////////////////////////////////////
+//Sticky Naviga
+const sectionHeroEl = document.querySelector(".section-hero");
+
+const obs = new IntersectionObserver(
+  function (entries) {
+    const ent = entries[0];
+    if (ent.isIntersecting === false) {
+      document.body.classList.add("sticky");
+    }
+    if (ent.isIntersecting === true) {
+      document.body.classList.remove("sticky");
+    }
+  },
+  {
+    root: null,
+    threshold: 0,
+    rootMargin: "-80px",
+  }
+);
+obs.observe(sectionHeroEl);
+
 // Fixing flexbox gap property misiing in safr
 function checkFlexGap() {
   var flex = document.createElement("div");
@@ -52,7 +74,6 @@ function checkFlexGap() {
   document.body.appendChild(flex);
   var isSupported = flex.scrollHeight === 1;
   flex.parentNode.removeChild(flex);
-  console.log(isSupported);
 
   if (!isSupported) document.body.classList.add("no-flexbox-gap");
 }
